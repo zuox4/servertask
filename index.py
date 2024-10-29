@@ -9,10 +9,11 @@ from models.User import db, User, Categoties
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '123123'
+
 admin = Admin(app, name='Добродел')
 db.init_app(app)
 
@@ -83,7 +84,11 @@ def get_categories(jwt_response):
     categories = Categoties.query.all()
     print(categories)
     data = [{'id': i.id, 'name': i.name} for i in categories]
-    return jsonify({'categories': data})
+    response = jsonify({'categories': data})
+    response.headers.add('Access-Control-Allow-Origin', 'https://task1298.vercel.app/*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.add('Access-Control-Allow-Methods', 'GET')
+    return response
 
 
 if __name__ == "__main__":
