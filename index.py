@@ -9,7 +9,23 @@ from models.User import db, User, Categoties
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={
+  r"/*" : {
+   "origins" : "*" ,
+   "methods" : [
+    "GET" ,
+    "POST" ,
+    "PUT" ,
+    "PATCH" ,
+    "DELETE" ,
+    "OPTIONS" ,
+   ],
+   "allow_headers" : [
+    "Content-Type" ,
+    "Authorization" ,
+   ],
+  }
+}, )
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '123123'
@@ -85,9 +101,6 @@ def get_categories(jwt_response):
     print(categories)
     data = [{'id': i.id, 'name': i.name} for i in categories]
     response = jsonify({'categories': data})
-    response.headers.add('Access-Control-Allow-Origin', 'https://task1298.vercel.app/*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    response.headers.add('Access-Control-Allow-Methods', 'GET')
     return response
 
 
