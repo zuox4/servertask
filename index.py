@@ -26,7 +26,7 @@ CORS(app, resources={
    ],
   }
 }, )
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://default:sncjxh9prwt4@ep-wispy-dream-a48ro2xf.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '123123'
 
