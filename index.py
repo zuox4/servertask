@@ -26,7 +26,7 @@ CORS(app, resources={
    ],
   }
 }, )
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://default:sncjxh9prwt4@ep-wispy-dream-a48ro2xf.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '123123'
 
@@ -94,13 +94,14 @@ def create_user(jwt_response):
 
 
 @app.route('/categories')
-@token_required
+# @token_required
 def get_categories(jwt_response):
     email = jwt_response["email"]
     categories = Categoties.query.all()
     print(categories)
     data = [{'id': i.id, 'name': i.name} for i in categories]
     response = jsonify({'categories': data})
+    print(response)
     return response
 
 
