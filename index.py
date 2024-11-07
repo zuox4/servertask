@@ -94,7 +94,7 @@ def create_user(jwt_response):
 
 
 @app.route('/categories')
-# @token_required
+@token_required
 def get_categories(jwt_response):
     email = jwt_response["email"]
     categories = Categoties.query.all()
